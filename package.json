@@ -1,14 +1,14 @@
 {
-  "name": "steam-oauth",
+  "name": "node-steam-openid",
   "version": "1.0.0",
-  "description": "A wrapper package around Steam's oAuth API. Supports promises :)",
+  "description": "A wrapper package around Steam's Authentication API. Supports promises :)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LeeviHalme/steam-oauth.git"
+    "url": "git+https://github.com/LeeviHalme/node-steam-openid.git"
   },
   "keywords": [
     "steam",
@@ -19,9 +19,9 @@
   "author": "Leevi Halme <me@leevihal.me> (https://leevihal.me)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/LeeviHalme/steam-oauth/issues"
+    "url": "https://github.com/LeeviHalme/node-steam-openid/issues"
   },
-  "homepage": "https://github.com/LeeviHalme/steam-oauth#readme",
+  "homepage": "https://github.com/LeeviHalme/node-steam-openid#readme",
   "dependencies": {
     "axios": "^0.19.0",
     "openid": "^2.0.6"

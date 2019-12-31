@@ -1,15 +1,15 @@
-# steam-oauth
+# node-steam-openid
 
-A wrapper package around Steam's oAuth API, which supports promises :)
+A lightweight wrapper package around Steam's Authentication API, which supports promises :)
 
 ## Usage
 
-Install the package by typing `npm i steam-oauth` in your project folder.
+Install the package by typing `npm i node-steam-openid` in your project folder.
 
 ### Setup
 
 ```javascript
-const SteamAuth = require("steam-oauth");
+const SteamAuth = require("node-steam-openid");
 
 const steam = new SteamAuth({
   realm: "http://localhost:5000", // Site name displayed to users on logon
