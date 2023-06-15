@@ -1,6 +1,6 @@
 {
   "name": "node-steam-openid",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A wrapper package around Steam's Authentication API. Supports promises :)",
   "main": "index.js",
   "scripts": {
