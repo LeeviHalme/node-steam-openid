@@ -1,7 +1,6 @@
 # node-steam-openid
 
 [![npm version](https://badge.fury.io/js/node-steam-openid.svg)](https://badge.fury.io/js/node-steam-openid)
-[![dependencies](https://david-dm.org/leevihalme/node-steam-openid.svg)](https://david-dm.org/leevihalme/node-steam-openid.svg)
 
 A lightweight wrapper package around Steam's Authentication API, which supports promises :)
 
