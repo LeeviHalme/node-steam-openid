@@ -98,7 +98,26 @@ class SteamAuth {
           return reject("Claimed identity is not valid.");
 
         try {
+          // FIXME: Hotfix 06/18/2023
+          // More info: https://twitter.com/variancewarren/status/1670405889113702400
+          const OPENID_CHECK = {
+            ns: 'http://specs.openid.net/auth/2.0',
+            claimed_id: 'https://steamcommunity.com/openid/id/',
+            identity: 'https://steamcommunity.com/openid/id/',
+          };
+
+          if (req.query['openid.ns'] !== OPENID_CHECK.ns) return reject("Claimed identity is not valid.");
+          if (!req.query['openid.claimed_id']?.startsWith(OPENID_CHECK.claimed_id)) return reject("Claimed identity is not valid.");
+          if (!req.query['openid.identity']?.startsWith(OPENID_CHECK.identity)) return reject("Claimed identity is not valid.");
+
+          const validOpEndpoint = 'https://steamcommunity.com/openid/login';
+          
+          if(req.query['openid.op_endpoint'] !== validOpEndpoint) {
+            return reject("Claimed identity is not valid.");
+          } 
+
           const user = await this.fetchIdentifier(result.claimedIdentifier);
+
           return resolve(user);
         } catch (error) {
           reject(error);
