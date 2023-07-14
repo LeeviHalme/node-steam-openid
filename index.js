@@ -1,6 +1,7 @@
 // Require Dependencies
 const axios = require("axios");
 const openid = require("openid");
+const url = require("url");
 
 // Main Class
 class SteamAuth {
@@ -106,13 +107,15 @@ class SteamAuth {
             identity: 'https://steamcommunity.com/openid/id/',
           };
 
-          if (req.query['openid.ns'] !== OPENID_CHECK.ns) return reject("Claimed identity is not valid.");
-          if (!req.query['openid.claimed_id']?.startsWith(OPENID_CHECK.claimed_id)) return reject("Claimed identity is not valid.");
-          if (!req.query['openid.identity']?.startsWith(OPENID_CHECK.identity)) return reject("Claimed identity is not valid.");
+          const searchParams = url.parse(req.url, true).query;
+
+          if (searchParams['openid.ns'] !== OPENID_CHECK.ns) return reject("Claimed identity is not valid.");
+          if (!searchParams['openid.claimed_id']?.startsWith(OPENID_CHECK.claimed_id)) return reject("Claimed identity is not valid.");
+          if (!searchParams['openid.identity']?.startsWith(OPENID_CHECK.identity)) return reject("Claimed identity is not valid.");
 
           const validOpEndpoint = 'https://steamcommunity.com/openid/login';
           
-          if(req.query['openid.op_endpoint'] !== validOpEndpoint) {
+          if(searchParams['openid.op_endpoint'] !== validOpEndpoint) {
             return reject("Claimed identity is not valid.");
           } 
 
