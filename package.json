@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/LeeviHalme/node-steam-openid#readme",
   "dependencies": {
-    "axios": "^0.21.2",
+    "axios": "^1.6.0",
     "openid": "^2.0.6",
     "url": "^0.11.1"
   }
