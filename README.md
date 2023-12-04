@@ -5,6 +5,10 @@
 
 A lightweight wrapper package around Steam's Authentication API, which supports promises :)
 
+## Requirements
+
+- Express @ 4.x
+
 ## Usage
 
 Install the package by typing `npm i node-steam-openid` in your project folder.
@@ -104,6 +108,19 @@ Object which holds all the authenticated user's data. The key `_json` holds the 
   }
 }
 ```
+
+## Contributing
+
+See [CONTRIBUTING.md](/.github/CONTRIBUTING.md) for contributing guidelines.
+
+## Security
+
+See [SECURITY.md](/.github/SECURITY.md) for security practices.
+
+## Development Roadmap
+
+- [ ] Add the ability to pass custom variables to Steam (query parameters)
+- [ ] Add support for Node.js native HTTP [<http.IncomingMessage>](https://nodejs.org/dist/latest-v14.x/docs/api/http.html#http_class_http_incomingmessage) class.
 
 ## License
 
