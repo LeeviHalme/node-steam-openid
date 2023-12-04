@@ -111,15 +111,15 @@ Object which holds all the authenticated user's data. The key `_json` holds the 
 
 ## Contributing
 
-See [CONTRIBUTING.md](/CONTRIBUTING.md) for contributing guidelines.
+See [CONTRIBUTING.md](/.github/CONTRIBUTING.md) for contributing guidelines.
 
 ## Security
 
-See [SECURITY.md](/SECURITY.md) for security practises.
+See [SECURITY.md](/.github/SECURITY.md) for security practices.
 
 ## Development Roadmap
 
-- [ ] Add ability to pass custom variables to Steam (query parameters)
+- [ ] Add the ability to pass custom variables to Steam (query parameters)
 - [ ] Add support for Node.js native HTTP [<http.IncomingMessage>](https://nodejs.org/dist/latest-v14.x/docs/api/http.html#http_class_http_incomingmessage) class.
 
 ## License
