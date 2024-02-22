@@ -3,6 +3,13 @@ const axios = require("axios");
 const openid = require("openid");
 const url = require("url");
 
+const OPENID_CHECK = {
+  ns: 'http://specs.openid.net/auth/2.0',
+  op_endpoint: 'https://steamcommunity.com/openid/login',
+  claimed_id: 'https://steamcommunity.com/openid/id/',
+  identity: 'https://steamcommunity.com/openid/id/',
+};
+
 // Main Class
 class SteamAuth {
   constructor({ realm, returnUrl, apiKey }) {
@@ -86,6 +93,13 @@ class SteamAuth {
   // Authenticate user
   async authenticate(req) {
     return new Promise((resolve, reject) => {
+      const searchParams = url.parse(req.url, true).query;
+
+      if (searchParams['openid.ns'] !== OPENID_CHECK.ns) return reject("Claimed identity is not valid.");
+      if (searchParams['openid.op_endpoint'] !== OPENID_CHECK.op_endpoint) return reject("Claimed identity is not valid.");
+      if (!searchParams['openid.claimed_id']?.startsWith(OPENID_CHECK.claimed_id)) return reject("Claimed identity is not valid.");
+      if (!searchParams['openid.identity']?.startsWith(OPENID_CHECK.identity)) return reject("Claimed identity is not valid.");
+
       // Verify assertion
       this.relyingParty.verifyAssertion(req, async (error, result) => {
         if (error) return reject(error.message);
@@ -99,26 +113,6 @@ class SteamAuth {
           return reject("Claimed identity is not valid.");
 
         try {
-          // FIXME: Hotfix 06/18/2023
-          // More info: https://twitter.com/variancewarren/status/1670405889113702400
-          const OPENID_CHECK = {
-            ns: 'http://specs.openid.net/auth/2.0',
-            claimed_id: 'https://steamcommunity.com/openid/id/',
-            identity: 'https://steamcommunity.com/openid/id/',
-          };
-
-          const searchParams = url.parse(req.url, true).query;
-
-          if (searchParams['openid.ns'] !== OPENID_CHECK.ns) return reject("Claimed identity is not valid.");
-          if (!searchParams['openid.claimed_id']?.startsWith(OPENID_CHECK.claimed_id)) return reject("Claimed identity is not valid.");
-          if (!searchParams['openid.identity']?.startsWith(OPENID_CHECK.identity)) return reject("Claimed identity is not valid.");
-
-          const validOpEndpoint = 'https://steamcommunity.com/openid/login';
-          
-          if(searchParams['openid.op_endpoint'] !== validOpEndpoint) {
-            return reject("Claimed identity is not valid.");
-          } 
-
           const user = await this.fetchIdentifier(result.claimedIdentifier);
 
           return resolve(user);
