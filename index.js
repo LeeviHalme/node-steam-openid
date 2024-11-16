@@ -59,14 +59,34 @@ class SteamAuth {
         const response = await axios.get(
           `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${this.apiKey}&steamids=${steamId}`
         );
+
         const players =
           response.data &&
           response.data.response &&
           response.data.response.players;
 
-        if (players && players.length > 0) {
+        if (players && players.length > 0)
+        {
           // Get the player
           const player = players[0];
+
+          const AnimatedAvatar = await axios.get(
+            `https://api.steampowered.com/IPlayerService/GetAnimatedAvatar/v1/?key=${this.apiKey}&steamid=${steamId}`
+          );
+
+          const Animated = 
+            AnimatedAvatar.data &&
+            AnimatedAvatar.data.response &&
+            AnimatedAvatar.data.response.avatar;
+
+          const AvatarFrame = await axios.get(
+            `https://api.steampowered.com/IPlayerService/GetAvatarFrame/v1/?key=${this.apiKey}&steamid=${steamId}`
+          );
+
+          const Frame =
+            AvatarFrame.data &&
+            AvatarFrame.data.response &&
+            AvatarFrame.data.response.avatar_frame;
 
           // Return user data
           resolve({
@@ -75,10 +95,13 @@ class SteamAuth {
             username: player.personaname,
             name: player.realname,
             profile: player.profileurl,
-            avatar: {
+            avatar:
+            {
               small: player.avatar,
               medium: player.avatarmedium,
-              large: player.avatarfull
+              large: player.avatarfull,
+              animated: Animated.image_small ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${Animated.image_small}`: player.avatarfull,
+              frame: Frame.image_small ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${Frame.image_small}` : null
             }
           });
         } else {
