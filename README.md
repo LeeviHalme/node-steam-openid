@@ -104,7 +104,9 @@ Object which holds all the authenticated user's data. The key `_json` holds the 
   avatar: {
     small: "...",
     medium: "...",
-    large: "..."
+    large: "...",
+    animated: "...",
+    frame: "...",
   }
 }
 ```
