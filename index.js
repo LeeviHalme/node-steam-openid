@@ -98,8 +98,8 @@ class SteamAuth {
               small: player.avatar,
               medium: player.avatarmedium,
               large: player.avatarfull,
-              animated: animated?.image_small ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${Animated.image_small}`: player.avatarfull,
-              frame: frame?.image_small ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${Frame.image_small}` : null
+              animated: animated?.image_small ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${animated.image_small}`: player.avatarfull,
+              frame: frame?.image_small ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${frame.image_small}` : null
             }
           });
         } else {
