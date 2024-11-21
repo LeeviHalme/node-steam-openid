@@ -60,32 +60,22 @@ class SteamAuth {
           `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${this.apiKey}&steamids=${steamId}`
         );
 
-        const players =
-          response.data &&
-          response.data.response &&
-          response.data.response.players;
+        const {players} = response.data && response.data.response; 
 
-        if (players && players.length > 0) {
+        if (players && players.length > 0)
+        {
           // Get the player
           const player = players[0];
 
-          const animatedAvatar = await axios.get(
-            `https://api.steampowered.com/IPlayerService/GetAnimatedAvatar/v1/?key=${this.apiKey}&steamid=${steamId}`
+          const profileItems = await axios.get(
+            `https://api.steampowered.com/IPlayerService/GetProfileItemsEquipped/v1/?steamid=${steamId}`
           );
 
-          const animated = 
-            animatedAvatar.data &&
-            animatedAvatar.data.response &&
-            animatedAvatar.data.response.avatar;
-
-          const avatarFrame = await axios.get(
-            `https://api.steampowered.com/IPlayerService/GetAvatarFrame/v1/?key=${this.apiKey}&steamid=${steamId}`
-          );
-
-          const frame =
-            avatarFrame.data &&
-            avatarFrame.data.response &&
-            avatarFrame.data.response.avatar_frame;
+          const {
+            avatar_frame,
+            animated_avatar,
+            profile_background,
+            mini_profile_background } = profileItems.data && profileItems.data.response;
 
           // Return user data
           resolve({
@@ -93,13 +83,29 @@ class SteamAuth {
             steamid: steamId,
             username: player.personaname,
             name: player.realname,
-            profile: player.profileurl,
+            profile: {
+              url: player.profileurl,
+              background: {
+                static: profile_background?.image_large ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${profile_background?.image_large}` : null,
+                movie: profile_background?.movie_webm ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${profile_background?.movie_webm}` : null,
+              },
+              background_mini: {
+                static: mini_profile_background?.image_large ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${mini_profile_background?.image_large}` : null,
+                movie: mini_profile_background?.movie_webm ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${mini_profile_background?.movie_webm}` : null,
+              },
+            },
             avatar: {
               small: player.avatar,
               medium: player.avatarmedium,
               large: player.avatarfull,
-              animated: animated?.image_small ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${animated.image_small}`: player.avatarfull,
-              frame: frame?.image_small ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${frame.image_small}` : null
+              animated: {
+                static: animated_avatar?.image_large ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${animated_avatar?.image_large}` : player.avatarfull,
+                movie: animated_avatar?.image_small ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${animated_avatar?.image_small}` : player.avatarfull,
+              },
+              frame: {
+                static: avatar_frame?.image_large ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${avatar_frame?.image_large}` : null,
+                movie: avatar_frame?.image_small ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${avatar_frame?.image_small}` : null
+              }
             }
           });
         } else {

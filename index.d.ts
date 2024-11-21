@@ -40,6 +40,13 @@ interface SteamAuthOptions {
     apiKey: string;
 }
 
+interface Profile {
+    url: string;
+    background: {static: string | null, movie: string | null};
+    background_mini: {static: string | null, movie: string | null};
+    apiKey: string;
+}
+
 /**
  * Object which holds all the authenticated user's data.
  * The key _json holds the raw response from Steam API.
@@ -49,12 +56,12 @@ interface UserObject {
     steamid: string;
     username: string;
     name: string;
-    profile: string;
+    profile: Profile;
     avatar: {
         small: string;
         medium: string;
         large: string;
-        animated: string;
-        frame: string;
+        animated: {static: string | null, movie: string | null};
+        frame: {static: string | null, movie: string | null};
     };
 }
