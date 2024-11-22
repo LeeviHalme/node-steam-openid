@@ -60,10 +60,9 @@ class SteamAuth {
           `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${this.apiKey}&steamids=${steamId}`
         );
 
-        const {players} = response.data && response.data.response; 
+        const { players } = response.data && response.data.response; 
 
-        if (players && players.length > 0)
-        {
+        if (players && players.length > 0) {
           // Get the player
           const player = players[0];
 
