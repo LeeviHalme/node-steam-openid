@@ -88,7 +88,7 @@ class SteamAuth {
               url: player.profileurl,
               background: {
                 static: profile_background?.image_large ? `${cdnUrl}/${profile_background?.image_large}` : null,
-                movie: profile_background?.movie_webm ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${profile_background?.movie_webm}` : null,
+                movie: profile_background?.movie_webm ? `${cdnUrl}/${profile_background?.movie_webm}` : null,
               },
               background_mini: {
                 static: mini_profile_background?.image_large ? `${cdnUrl}/${mini_profile_background?.image_large}` : null,
