@@ -102,13 +102,13 @@ Object which holds all the authenticated user's data. The key `_json` holds the 
   name: "Example Name",
   profile: {
     url: "https://steamcommunity.com/id/Example",
-    background: { //profile
-      static: "....jpg | null",
-      movie: "....webm | null",
+    background: {
+      static: "....jpg" | null,
+      movie: "....webm" | null,
     },
-    background_mini: { //mini profile
-      static: "....jpg | null",
-      movie: "....webm | null",
+    background_mini: {
+      static: "....jpg" | null,
+      movie: "....webm" | null,
     },
   },
   avatar: {
