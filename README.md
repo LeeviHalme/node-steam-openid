@@ -100,11 +100,29 @@ Object which holds all the authenticated user's data. The key `_json` holds the 
   steamid: "12345678912345678",
   username: "Example Username",
   name: "Example Name",
-  profile: "https://steamcommunity.com/id/Example",
+  profile: {
+    url: "https://steamcommunity.com/id/Example",
+    background: {
+      static: "....jpg" | null,
+      movie: "....webm" | null,
+    },
+    background_mini: {
+      static: "....jpg" | null,
+      movie: "....webm" | null,
+    },
+  },
   avatar: {
     small: "...",
     medium: "...",
-    large: "..."
+    large: "...",
+    animated: {
+      static: "....png",
+      movie: "....gif | png",
+    },
+    frame: {
+      static: "....png | null",
+      movie: "....png | null",
+    },
   }
 }
 ```

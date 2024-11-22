@@ -59,14 +59,24 @@ class SteamAuth {
         const response = await axios.get(
           `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${this.apiKey}&steamids=${steamId}`
         );
-        const players =
-          response.data &&
-          response.data.response &&
-          response.data.response.players;
+
+        const { players } = response.data && response.data.response; 
 
         if (players && players.length > 0) {
           // Get the player
           const player = players[0];
+
+          const profileItems = await axios.get(
+            `https://api.steampowered.com/IPlayerService/GetProfileItemsEquipped/v1/?steamid=${steamId}`
+          );
+
+          const {
+            avatar_frame,
+            animated_avatar,
+            profile_background,
+            mini_profile_background } = profileItems.data && profileItems.data.response;
+
+          const cdnUrl = "https://cdn.akamai.steamstatic.com/steamcommunity/public/images"
 
           // Return user data
           resolve({
@@ -74,11 +84,29 @@ class SteamAuth {
             steamid: steamId,
             username: player.personaname,
             name: player.realname,
-            profile: player.profileurl,
+            profile: {
+              url: player.profileurl,
+              background: {
+                static: profile_background?.image_large ? `${cdnUrl}/${profile_background?.image_large}` : null,
+                movie: profile_background?.movie_webm ? `${cdnUrl}/${profile_background?.movie_webm}` : null,
+              },
+              background_mini: {
+                static: mini_profile_background?.image_large ? `${cdnUrl}/${mini_profile_background?.image_large}` : null,
+                movie: mini_profile_background?.movie_webm ? `${cdnUrl}/${mini_profile_background?.movie_webm}` : null,
+              },
+            },
             avatar: {
               small: player.avatar,
               medium: player.avatarmedium,
-              large: player.avatarfull
+              large: player.avatarfull,
+              animated: {
+                static: animated_avatar?.image_large ? `${cdnUrl}/${animated_avatar?.image_large}` : player.avatarfull,
+                movie: animated_avatar?.image_small ? `${cdnUrl}/${animated_avatar?.image_small}` : player.avatarfull,
+              },
+              frame: {
+                static: avatar_frame?.image_large ? `${cdnUrl}/${avatar_frame?.image_large}` : null,
+                movie: avatar_frame?.image_small ? `${cdnUrl}/${avatar_frame?.image_small}` : null
+              }
             }
           });
         } else {
