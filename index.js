@@ -76,6 +76,8 @@ class SteamAuth {
             profile_background,
             mini_profile_background } = profileItems.data && profileItems.data.response;
 
+          const cdnUrl = "https://cdn.akamai.steamstatic.com/steamcommunity/public/images"
+
           // Return user data
           resolve({
             _json: player,
@@ -85,12 +87,12 @@ class SteamAuth {
             profile: {
               url: player.profileurl,
               background: {
-                static: profile_background?.image_large ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${profile_background?.image_large}` : null,
+                static: profile_background?.image_large ? `${cdnUrl}/${profile_background?.image_large}` : null,
                 movie: profile_background?.movie_webm ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${profile_background?.movie_webm}` : null,
               },
               background_mini: {
-                static: mini_profile_background?.image_large ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${mini_profile_background?.image_large}` : null,
-                movie: mini_profile_background?.movie_webm ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${mini_profile_background?.movie_webm}` : null,
+                static: mini_profile_background?.image_large ? `${cdnUrl}/${mini_profile_background?.image_large}` : null,
+                movie: mini_profile_background?.movie_webm ? `${cdnUrl}/${mini_profile_background?.movie_webm}` : null,
               },
             },
             avatar: {
@@ -98,12 +100,12 @@ class SteamAuth {
               medium: player.avatarmedium,
               large: player.avatarfull,
               animated: {
-                static: animated_avatar?.image_large ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${animated_avatar?.image_large}` : player.avatarfull,
-                movie: animated_avatar?.image_small ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${animated_avatar?.image_small}` : player.avatarfull,
+                static: animated_avatar?.image_large ? `${cdnUrl}/${animated_avatar?.image_large}` : player.avatarfull,
+                movie: animated_avatar?.image_small ? `${cdnUrl}/${animated_avatar?.image_small}` : player.avatarfull,
               },
               frame: {
-                static: avatar_frame?.image_large ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${avatar_frame?.image_large}` : null,
-                movie: avatar_frame?.image_small ? `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/${avatar_frame?.image_small}` : null
+                static: avatar_frame?.image_large ? `${cdnUrl}/${avatar_frame?.image_large}` : null,
+                movie: avatar_frame?.image_small ? `${cdnUrl}/${avatar_frame?.image_small}` : null
               }
             }
           });
