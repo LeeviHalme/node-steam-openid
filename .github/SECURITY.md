@@ -1,23 +1,17 @@
-# Security
+# Security Policy
 
 The owner of this repository takes the security of their packages seriously.
 
 If you believe you have found a security vulnerability in this package or repository, please report it as described below.
 
-## Reporting Security Issues
+## Supported Versions
 
-Report the security vulnerability in the repository's issue-page using the `security` tag. You should receive a response withing 24 hours.
+Security updates are applied only to the latest release.
 
-Please include the requested information listed below (as much as you can provide) to help us better understand the nature and scope of the possible issue:
+## Reporting a Vulnerability
 
-- Type of issue (e.g. buffer overflow, SQL injection, cross-site scripting, etc.)
-- Full paths of source file(s) related to the manifestation of the issue
-- The location of the affected source code (tag/branch/commit or direct URL)
-- Any special configuration required to reproduce the issue
-- Step-by-step instructions to reproduce the issue
-- Proof-of-concept or exploit code (if possible)
-- Impact of the issue, including how an attacker might exploit the issue
+If you have discovered a security vulnerability in this project, please report it privately. **Do not disclose it as a public issue.** This gives us time to work with you to fix the issue before public exposure, reducing the chance that the exploit will be used before a patch is released.
 
-## Preferred Languages
+Please disclose it at [security advisory](https://github.com/LeeviHalme/node-steam-openid/security/advisories/new).
 
-We prefer all communications to be in English.
+This project is maintained by volunteers on a reasonable-effort basis. As such, vulnerabilities will be disclosed in a best effort base.
