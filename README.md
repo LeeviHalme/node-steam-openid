@@ -21,7 +21,7 @@ const SteamAuth = require("node-steam-openid");
 const steam = new SteamAuth({
   realm: "http://localhost:5000", // Site name displayed to users on logon
   returnUrl: "http://localhost:5000/auth/steam/authenticate", // Your return route
-  apiKey: "XXXXXXXXXXXXXXXXXXXXXXXXXX" // Steam API key
+  apiKey: "XXXXXXXXXXXXXXXXXXXXXXXXXX", // Steam API key
 });
 ```
 
@@ -116,12 +116,12 @@ Object which holds all the authenticated user's data. The key `_json` holds the 
     medium: "...",
     large: "...",
     animated: {
-      static: "....png",
-      movie: "....gif | png",
+      static: "....png" | null,
+      movie: "....webm" | null,
     },
     frame: {
-      static: "....png | null",
-      movie: "....png | null",
+      static: "....png" | null,
+      movie: "....webm" | null,
     },
   }
 }
@@ -139,6 +139,7 @@ See [SECURITY.md](/.github/SECURITY.md) for security practices.
 
 - [ ] Add the ability to pass custom variables to Steam (query parameters)
 - [ ] Add support for Node.js native HTTP [<http.IncomingMessage>](https://nodejs.org/dist/latest-v14.x/docs/api/http.html#http_class_http_incomingmessage) class.
+- [ ] Add unit tests
 
 ## License
 
